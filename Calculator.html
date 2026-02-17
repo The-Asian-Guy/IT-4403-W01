@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Modified Calculator Example</title>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <style>
+		  .parentContainer {
+  text-align: center;
+}
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        input, select { margin: 5px; }
+        #result { font-size: 20px; margin-top: 10px; font-weight: bold; }
+        .error { color: #FFC629; }
+
+		#x, #y, #operation, #color {
+		color: #FFC629;
+		background-color: black;
+		border-color: #FFC629;
+		}
+
+		#calculate {
+		background-color: black;
+		color: #FFC629;
+		border-color: #FFC629;
+		border-radius: 8px; 
+		padding: 10px 20px;
+		cursor: pointer;
+		}
+
+		#calculate:hover {
+		background-color: #FFC629;
+		color: black;
+		}
+
+		a:link, a:visited {
+		background-color: black;
+		color: #FFC629;
+		border-radius: 8px; 
+		border: 2px solid #FFC629;
+		padding: 14px 25px;
+		text-align: center;
+		margin: 0 auto;
+		text-decoration: none;
+		display: inline-block;
+		}
+	</style>
+</head>
+<body style="background-color:black; color: #FFC629;">
+
+    <h1 style="text-align: center;">Modified Calculator Example</h1>
+	<p>Enter numerical values for x and y.</p>
+    <div>
+        <label for="x">x:</label>
+        <input type="number" id="x">
+    </div>
+
+    <div>
+        <label for="y">y:</label>
+        <input type="number" id="y">
+    </div>
+
+    <div>
+        <label for="operation">Select type of calculation:</label>
+        <select id="operation">
+            <option value="add">Addition (+)</option>
+            <option value="subtract">Subtraction (−)</option>
+            <option value="multiply">Multiplication (*)</option>
+            <option value="divide">Division (/)</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="color">Enter color name to display result in (e.g., red, blue, green):</label>
+        <input type="text" id="color">
+    </div>
+
+    <div>
+        <button id="calculate">Calculate</button>
+    </div>
+
+    <div id="result">Result: </div>
+
+    <script>
+        // jQuery Code
+        $(document).ready(function() {
+            $('#calculate').click(function() {
+                // Get user inputs
+                var x = parseFloat($('#x').val());
+                var y = parseFloat($('#y').val());
+                var operation = $('#operation').val();
+                var result;
+                var color = $('#color').val().trim().toLowerCase(); // User color input
+
+                // Check if numbers are valid
+                if (isNaN(x) || isNaN(y)) {
+                    $('#result').text('Please enter valid numbers.').addClass('error');
+                    return;
+                }
+
+                // Perform calculation based on selected operation
+                switch (operation) {
+                    case 'add':
+                        result = x + y;
+                        break;
+                    case 'subtract':
+                        result = x - y;
+                        break;
+                    case 'multiply':
+                        result = x * y;
+                        break;
+                    case 'divide':
+                        if (y === 0) {
+                            $('#result').text('Error: Cannot divide by zero!').addClass('error');
+                            return;
+                        }
+                        result = x / y;
+                        break;
+                    default:
+                        $('#result').text('Invalid operation selected.').addClass('error');
+                        return;
+                }
+
+                // Check if the user entered a valid color name
+                var isValidColor = /^#[0-9A-F]{6}$|^[A-Za-z]+$/.test(color);
+                if (color && !isValidColor) {
+                    $('#result').text('Invalid color name. Please enter a valid color.').addClass('error');
+				} else if (color === "black") {
+					$('#result').text('Invalid color name. Please enter a valid color.').addClass('error');
+                    return;
+                }
+
+                // Apply the color to the result (default to black if no color is specified or invalid color)
+                $('#result').text('Result: ' + result).removeClass('error');
+                if (color && isValidColor) {
+                    $('#result').css('color', color);
+                } else {
+                    $('#result').css('color', '#FFC629');
+                }
+            });
+        });
+    </script>
+	<p></p>
+	<P></P>
+	<div class="parentContainer">
+	<a href="Labs.html">Return to Labs</a>
+	</div>
+</body>
+</html>
