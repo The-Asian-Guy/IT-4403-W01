@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+  #prev-btn, #next-btn {
+		background-color: black;
+		color: #FFC629;
+		border-color: #FFC629;
+		border-radius: 8px; 
+		padding: 10px 20px;
+		cursor: pointer;
+		}
+</style>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slideshow</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="slideshow-container">
+    <div class="image-container">
+      <img id="current-image" alt="Image 1" />
+      <div id="caption"></div>
+    </div>
+    <div class="controls">
+      <button id="prev-btn">Previous</button>
+      <button id="next-btn">Next</button>
+    </div>
+    <div id="image-counter">Image 1 of 5</div>
+  </div>
+  <div class="thumbnails">
+    <ul id="thumbnail-list">
+    </ul>
+  </div>
+  <script src="Slideshow.js"></script>
+</body>
+</html>
