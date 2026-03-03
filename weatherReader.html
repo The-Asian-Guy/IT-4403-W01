@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript JSON to Object Example</title>
+</head>
+<body style="background-color:black; color: #FFC629;">
+    <h1>Weather Information</h1>
+    <h2><span id="location"></span></h2>
+    <br></br>
+    <h3>Coordinates</h3>
+    <p>Longitude: <span id="longitude"></span></p>
+    <p>Latitude: <span id="latitude"></span></p>
+    <br></br>
+    <h3>Weather</h3>
+    <p>Main: <span id="main"></span></p>
+    <p>Description: <span id="description"></span></p>
+    <p>Icon: <span id="icon"></span></p>
+    <br></br>
+    <h3>Base: <span id="base"></span></h3>
+    <br></br>
+    <h3>Temperature: <span id="temperature"></span> K</h3>
+    <p>Pressure: <span id="pressure"></span> hPa</p>
+    <p>Humidity: <span id="humidity"></span>%</p>
+    <p>Minimum Temperature: <span id="temp_min"></span> K</p>
+    <p>Maximum Temperature: <span id="temp_max"></span> K</p>
+    <br></br>
+    <h3>Wind</h3>
+    <p>Wind Speed: <span id="windspeed"></span> m/s</p>
+    <p>Wind Direction: <span id="winddeg"></span> degrees</p>
+    <br></br>
+    <h3>Clouds</h3>
+    <p>Cloudiness: <span id="clouds"></span>%</p>
+    <br></br>
+
+  <script>
+    // Simulating the JSON object (as you provided)
+    var jsonObject = {
+      "coord": {"lon": -0.13, "lat": 51.51},
+      "weather": [{"id": 500, "main": "Rain", "description": "light rain", "icon": "10d"}],
+      "base": "cmc stations",
+      "main": {"temp": 288.26, "pressure": 1026, "humidity": 59, "temp_min": 286.95, "temp_max": 289.26},
+      "wind": {"speed": 3.6, "deg": 90},
+      "clouds": {"all": 75},
+      "dt": 1441734773,
+      "sys": {
+        "type": 1,
+        "id": 5091,
+        "message": 0.0165,
+        "country": "GB",
+        "sunrise": 1441689887,
+        "sunset": 1441737016
+      },
+      "id": 2643743,
+      "name": "London",
+      "cod": 200
+    };
+
+    // Print values to the console
+    console.log("Location:", jsonObject.name);
+    console.log("Coordinates:", jsonObject.coord.lon, jsonObject.coord.lat);
+    console.log("Weather:", jsonObject.weather[0].main);
+    console.log("Description:", jsonObject.weather[0].description);
+    console.log("Temperature:", jsonObject.main.temp);
+    console.log("Humidity:", jsonObject.main.humidity);
+    console.log("Wind Speed:", jsonObject.wind.speed);
+    console.log("Cloudiness:", jsonObject.clouds.all);
+
+    // Displaying values in the HTML
+    document.getElementById('location').textContent = jsonObject.name;
+    document.getElementById('longitude').textContent = jsonObject.coord.lon;
+    document.getElementById('latitude').textContent = jsonObject.coord.lat;
+    document.getElementById('main').textContent = jsonObject.weather[0].main;
+    document.getElementById('description').textContent = jsonObject.weather[0].description;
+    document.getElementById('icon').textContent = jsonObject.weather[0].icon;
+    document.getElementById('base').textContent = jsonObject.base;
+    document.getElementById('temperature').textContent = jsonObject.main.temp;
+    document.getElementById('pressure').textContent = jsonObject.main.pressure;
+    document.getElementById('humidity').textContent = jsonObject.main.humidity;
+    document.getElementById('temp_min').textContent = jsonObject.main.temp_min;
+    document.getElementById('temp_max').textContent = jsonObject.main.temp_max;
+    document.getElementById('windspeed').textContent = jsonObject.wind.speed;
+    document.getElementById('winddeg').textContent = jsonObject.wind.deg;
+    document.getElementById('clouds').textContent = jsonObject.clouds.all;
+    document.getElementById('dt').textContent = jsonObject.dt;
+  </script>
+</body>
+</html>
