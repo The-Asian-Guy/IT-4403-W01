@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Milestone 1: Single Book Display</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+        .parentContainer {
+  text-align: center;
+}
+    a:link, a:visited {
+  background-color: black;
+  color: #FFC629;
+  border-radius: 8px; 
+  border: 2px solid #FFC629;
+  padding: 14px 25px;
+  text-align: center;
+  margin: 0 auto;
+  text-decoration: none;
+  display: inline-block;
+
+}
+a:hover, a:active {
+  background-color: #FFC629;
+  color: black;
+}
+    body {
+      font-family: Arial, sans-serif;
+      background-color: black;
+      margin: 0;
+      padding: 0;
+      color: #FFC629;
+    }
+    .book-details {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    .book-info {
+      width: 60%;
+    }
+    .book-image img {
+      max-width: 500px;
+      height: auto;
+      left: 30px;
+      position: relative;
+    }
+    .book-info ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .book-info ul li {
+      margin-bottom: 8px;
+    }
+    .book-description {
+      margin-top: 20px;
+      font-size: 1.1em;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 style="text-align: center;">Milestone 1: Single Book Display</h1>
+    <div class="parentContainer">
+	  <a href="IndividualProjectWork.html">Return to Individual Project Works</a>
+	  </div>
+    <div class="book-details">
+      <div class="book-image">
+        <img id="book-thumbnail" src="" alt="Book Image">
+      </div>
+      <div class="book-info">
+        <h2><u id="book-title"></u></h2>
+        <h3 id="book-subtitle"></h3>
+        <ul>
+          <li><strong>Author(s):</strong> <span id="book-authors"></span></li>
+          <li><strong>Publisher:</strong> <span id="book-publisher"></span></li>
+          <li><strong>Published Date:</strong> <span id="book-published-date"></span></li>
+          <li><strong>ISBN-10:</strong> <span id="book-isbn10"></span></li>
+          <li><strong>ISBN-13:</strong> <span id="book-isbn13"></span></li>
+          <li><strong>Page Count:</strong> <span id="book-page-count"></span></li>
+          <li><strong>Categories:</strong> <span id="book-categories"></span></li>
+          <li><strong>Rating:</strong> <span id="book-rating"></span> / 5</li>
+          <li><strong>Preview link: </strong><a id="book-preview" href="#" target="_blank">Book Preview</a></li>
+    </div>
+        </ul>
+      </div>
+    </div>
+    <div class="book-description">
+      <h3><u>Description</u></h3>
+      <p id="book-description"></p>
+    </div>
+    
+  </div>
+
+  <script>
+  var bookData = {
+    "kind": "books#volume",
+    "id": "Wfan6L9RGgYC",
+    "etag": "ZvAF36NdUD0",
+    "selfLink": "https://www.googleapis.com/books/v1/volumes/Wfan6L9RGgYC",
+    "volumeInfo": {
+      "title": "The Modern Web",
+      "subtitle": "Multi-device Web Development with HTML5, CSS3, and JavaScript",
+      "authors": [
+      "Peter Gasston"
+      ],
+      "publisher": "No Starch Press",
+      "publishedDate": "2013",
+      "description": "\u003cp\u003e\u003cb\u003eA Guide to Modern Web Development\u003c/b\u003e\u003cbr\u003e\u003c/p\u003e\u003cp\u003eToday's web technologies are evolving at near-light speed, bringing the promise of a seamless Internet ever closer to reality. When users can browse the Web on a three-inch phone screen as easily as on a fifty-inch HDTV, what's a developer to do?\u003c/p\u003e\u003cp\u003ePeter Gasston's \u003ci\u003eThe Modern Web\u003c/i\u003e will guide you through the latest and most important tools of device-agnostic web development, including HTML5, CSS3, and JavaScript. His plain-English explanations and practical examples emphasize the techniques, principles, and practices that you'll need to easily transcend individual browser quirks and stay relevant as these technologies are updated.\u003c/p\u003e\u003cp\u003eLearn how to:\u003c/p\u003e\u003cp\u003e* Plan your content so that it displays fluidly across multiple devices\u003cbr\u003e* Design websites to interact with devices using the most up-to-date APIs, including Geolocation, Orientation, and Web Storage\u003cbr\u003e* Incorporate cross-platform audio and video without using troublesome plug-ins\u003cbr\u003e* Make images and graphics scalable on high-resolution devices with SVGUse powerful HTML5 elements to design better forms\u003c/p\u003e\u003cp\u003eTurn outdated websites into flexible, user-friendly ones that take full advantage of the unique capabilities of any device or browser. With the help of \u003ci\u003eThe Modern Web\u003c/i\u003e, you'll be ready to navigate the front lines of device-independent development.\u003c/p\u003e",
+      "industryIdentifiers": [
+      {
+        "type": "ISBN_10",
+        "identifier": "1593274874"
+      },
+      {
+        "type": "ISBN_13",
+        "identifier": "9781593274870"
+      }
+      ],
+      "readingModes": {
+      "text": true,
+      "image": true
+      },
+      "pageCount": 264,
+      "printedPageCount": 266,
+      "dimensions": {
+      "height": "24.00 cm",
+      "width": "17.80 cm",
+      "thickness": "1.50 cm"
+      },
+      "printType": "BOOK",
+      "categories": [
+      "Computers / Web / Design",
+      "Computers / Software Development & Engineering / General",
+      "Computers / Programming Languages / JavaScript",
+      "Computers / Programming Languages / HTML",
+      "Computers / Web / Web Programming"
+      ],
+      "averageRating": 4.5,
+      "ratingsCount": 3,
+      "maturityRating": "NOT_MATURE",
+      "allowAnonLogging": true,
+      "contentVersion": "1.2.2.0.preview.3",
+      "panelizationSummary": {
+      "containsEpubBubbles": false,
+      "containsImageBubbles": false
+      },
+      "imageLinks": {
+      "smallThumbnail": "http://books.google.com/books/content?id=Wfan6L9RGgYC&printsec=frontcover&img=1&zoom=5&edge=curl&imgtk=AFLRE72-Gh1c0ZL_THUrquksFgc3X5Wy-q9BPJDjSi0xaDQ0vtLSdojQ17dwIrv6phj-4y8CDm3MeLUw1e1wSnfniKyD-abm09vCdMBO-8ESgMhQDawq33o4AIlp_fKSsJDVnGBwT-EI&source=gbs_api",
+      "thumbnail": "http://books.google.com/books/content?id=Wfan6L9RGgYC&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE72Ck-SDE0IfNZSnWJK-GFRLJ-uMiV8CWafGp2KsPvVHiSgm75LMY_6Asy_Dj11YjEtqtxgR_TgfbhhKVcNev6xU1HTR5CKwMfhDxdNEITzQn7y7Ox3srPxtQf4XfUZixUUgQqWv&source=gbs_api",
+      "small": "http://books.google.com/books/content?id=Wfan6L9RGgYC&printsec=frontcover&img=1&zoom=2&edge=curl&imgtk=AFLRE72WfQ9QTc7zT5DJ8FueMGiij6XL5u0PvwoM7VmOyzf_oHsGJb3XX4sBg1hCk_54GbD1Ygz9y8FbGJCX_QA8DBS9awZjtvq1yUYdR1mFr7b60QKvh8BjbbusALiiAxqOruipTdmM&source=gbs_api",
+      "medium": "http://books.google.com/books/content?id=Wfan6L9RGgYC&printsec=frontcover&img=1&zoom=3&edge=curl&imgtk=AFLRE720-XuoryeoixWljTk8kznXGacG922jtbujFCGdSjO3NIkp7CKsmsoWC4s913X_VN_S5tYPk3Y0YvlkUP1qIC3BTZFDOaP_Z8-7KYewt-MVK3M-twtOgJlWkedy8K-8591tG2e3&source=gbs_api",
+      "large": "http://books.google.com/books/content?id=Wfan6L9RGgYC&printsec=frontcover&img=1&zoom=4&edge=curl&imgtk=AFLRE72B5zJmOLYC8Y0R9z5m2yzPA3f6oONduB0bTS3dIUiKnlFmZvDmBn7qWEujf8PQFMc3ubuvb-aKAZ_ualqNUhp4csX7KbcRb47EC3dKXL6XvhRH7BMvAjl8ONv7FBZYYMXIgK37&source=gbs_api",
+      "extraLarge": "http://books.google.com/books/content?id=Wfan6L9RGgYC&printsec=frontcover&img=1&zoom=6&edge=curl&imgtk=AFLRE73DaB5U1Mh7wOGjZeFJCpnYyKI97XVLsTrIpixexqCLtRDF3EJlVj-_sY6AQFllkDjMJc4OzYgz1Tgk4e1l-t4U-5c3GuYdP_u_m_lMqFarv7yzfQ_zQXf-7txn9I2ldn-wh0Fo&source=gbs_api"
+      },
+      "language": "en",
+      "previewLink": "http://books.google.com/books?id=Wfan6L9RGgYC&hl=&source=gbs_api",
+      "infoLink": "https://play.google.com/store/books/details?id=Wfan6L9RGgYC&source=gbs_api",
+      "canonicalVolumeLink": "https://market.android.com/details?id=book-Wfan6L9RGgYC"
+    },
+    "layerInfo": {
+      "layers": [
+      {
+        "layerId": "geo",
+        "volumeAnnotationsVersion": "8"
+      }
+      ]
+    },
+    "saleInfo": {
+      "country": "US",
+      "saleability": "NOT_FOR_SALE",
+      "isEbook": false
+    },
+    "accessInfo": {
+      "country": "US",
+      "viewability": "PARTIAL",
+      "embeddable": true,
+      "publicDomain": false,
+      "textToSpeechPermission": "ALLOWED",
+      "epub": {
+      "isAvailable": true
+      },
+      "pdf": {
+      "isAvailable": true
+      },
+      "webReaderLink": "http://play.google.com/books/reader?id=Wfan6L9RGgYC&hl=&printsec=frontcover&source=gbs_api",
+      "accessViewStatus": "SAMPLE",
+      "quoteSharingAllowed": false
+    }
+  }
+
+    $(document).ready(function() {
+      $('#book-title').text(bookData.volumeInfo.title);
+      $('#book-subtitle').text(bookData.volumeInfo.subtitle);
+      $('#book-authors').text(bookData.volumeInfo.authors.join(", "));
+      $('#book-publisher').text(bookData.volumeInfo.publisher);
+      $('#book-published-date').text(bookData.volumeInfo.publishedDate);
+      $('#book-isbn10').text(bookData.volumeInfo.industryIdentifiers[0].identifier);
+      $('#book-isbn13').text(bookData.volumeInfo.industryIdentifiers[1].identifier);
+      $('#book-page-count').text(bookData.volumeInfo.pageCount);
+      $('#book-categories').text(bookData.volumeInfo.categories.join(", "));
+      $('#book-rating').text(bookData.volumeInfo.averageRating);
+      $('#book-description').html(bookData.volumeInfo.description);
+      $('#book-thumbnail').attr('src', bookData.volumeInfo.imageLinks.small);
+      $('#book-preview').attr('href', bookData.volumeInfo.previewLink);
+    });
+  </script>
+</body>
+</html>
