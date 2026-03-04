@@ -35,7 +35,6 @@
     <br></br>
 
   <script>
-    // Simulating the JSON object (as you provided)
     var jsonObject = {
       "coord": {"lon": -0.13, "lat": 51.51},
       "weather": [{"id": 500, "main": "Rain", "description": "light rain", "icon": "10d"}],
@@ -57,17 +56,6 @@
       "cod": 200
     };
 
-    // Print values to the console
-    console.log("Location:", jsonObject.name);
-    console.log("Coordinates:", jsonObject.coord.lon, jsonObject.coord.lat);
-    console.log("Weather:", jsonObject.weather[0].main);
-    console.log("Description:", jsonObject.weather[0].description);
-    console.log("Temperature:", jsonObject.main.temp);
-    console.log("Humidity:", jsonObject.main.humidity);
-    console.log("Wind Speed:", jsonObject.wind.speed);
-    console.log("Cloudiness:", jsonObject.clouds.all);
-
-    // Displaying values in the HTML
     document.getElementById('location').textContent = jsonObject.name;
     document.getElementById('longitude').textContent = jsonObject.coord.lon;
     document.getElementById('latitude').textContent = jsonObject.coord.lat;
@@ -86,4 +74,5 @@
     document.getElementById('dt').textContent = jsonObject.dt;
   </script>
 </body>
+
 </html>
