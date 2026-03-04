@@ -3,7 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JavaScript JSON to Object Example</title>
+  <style>
+    .parentContainer {
+  a:link, a:visited {
+		background-color: black;
+		color: #FFC629;
+		border-radius: 8px; 
+		border: 2px solid #FFC629;
+		padding: 14px 25px;
+		text-align: center;
+		margin: 0 auto;
+		text-decoration: none;
+		display: inline-block;
+		}
+  }
+  </style>
+  <title>Weather Information</title>
 </head>
 <body style="background-color:black; color: #FFC629;">
     <h1>Weather Information</h1>
@@ -33,6 +48,9 @@
     <h3>Clouds</h3>
     <p>Cloudiness: <span id="clouds"></span>%</p>
     <br></br>
+    <div class="parentContainer">
+	  <a href="Labs.html">Return to Labs</a>
+	  </div>
 
   <script>
     var jsonObject = {
@@ -76,3 +94,4 @@
 </body>
 
 </html>
+
