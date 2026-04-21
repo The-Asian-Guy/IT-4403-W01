@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Bookshelf</title>
-  <link rel="stylesheet" href="Compare2.css">
+  <title>Book Details</title>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -13,10 +12,41 @@
     <a href="Compare4.html">My Bookshelf</a>
   </div>
 
-  <h1>My Bookshelf</h1>
+  <h1>Book Details</h1>
 
-  <div id="bookshelf-container"></div>
+  <div id="book-details"></div>
 
-  <script src="Compare5.js"></script>
+  <script>
+    $(document).ready(function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const bookId = urlParams.get('id');
+      if (bookId) {
+        fetchBookDetails(bookId);
+      }
+
+      function fetchBookDetails(bookId) {
+        const apiUrl = `https://www.googleapis.com/books/v1/volumes/${bookId}`;
+
+        $.get(apiUrl, function(data) {
+          const book = data.volumeInfo;
+          const title = book.title;
+          const authors = book.authors ? book.authors.join(", ") : "Unknown Author";
+          const description = book.description || "No description available.";
+          const thumbnail = book.imageLinks ? book.imageLinks.thumbnail : "https://via.placeholder.com/128x193?text=No+Image";
+
+          const bookDetailsHtml = `
+            <div class="book-detail">
+              <img src="${thumbnail}" alt="${title}">
+              <h3>${title}</h3>
+              <p><strong>Authors:</strong> ${authors}</p>
+              <p><strong>Description:</strong> ${description}</p>
+            </div>
+          `;
+
+          $("#book-details").html(bookDetailsHtml);
+        });
+      }
+    });
+  </script>
 </body>
 </html>
