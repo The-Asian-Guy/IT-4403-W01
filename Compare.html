@@ -4,22 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Book Search</title>
-  <link rel="stylesheet" href="Compare2.css">
+  <link rel="stylesheet" href="style.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
   <div class="navbar">
-    <a href="Compare.html">Home</a>
-    <a href="Compare4.html">My Bookshelf</a>
+    <a href="index.html">Home</a>
+    <a href="bookshelf.html">My Bookshelf</a>
   </div>
   
   <h1>Search for Books</h1>
 
+  <!-- Search Input and Button -->
   <input type="text" id="search-query" placeholder="Search for a book...">
   <button id="search-button">Search</button>
 
   <div id="results"></div>
 
-  <script src="Compare3.js"></script>
+  <!-- Pagination Controls -->
+  <div id="pagination"></div>
+
+  <script src="script.js"></script>
 </body>
 </html>
