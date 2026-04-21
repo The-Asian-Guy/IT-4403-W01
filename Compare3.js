@@ -1,8 +1,8 @@
 $(document).ready(function() {
   let currentPage = 1;
-  const resultsPerPage = 10; // Adjust to change the number of results per page
+  const resultsPerPage = 10;
 
-  // Click event for the search button
+  // Handle search button click
   $("#search-button").click(function() {
     const query = $("#search-query").val().trim();
     if (query) {
@@ -10,12 +10,11 @@ $(document).ready(function() {
     }
   });
 
-  // Function to search books
+  // Search books function
   function searchBooks(query, page) {
     const startIndex = (page - 1) * resultsPerPage;
     const apiUrl = `https://www.googleapis.com/books/v1/volumes?q=${query}&startIndex=${startIndex}&maxResults=${resultsPerPage}`;
 
-    // Make the API request
     $.get(apiUrl, function(data) {
       const books = data.items || [];
       displayBooks(books);
@@ -23,10 +22,9 @@ $(document).ready(function() {
     });
   }
 
-  // Function to display books
+  // Display books function
   function displayBooks(books) {
-    $("#results").empty();  // Clear previous results
-
+    $("#results").empty();
     books.forEach(function(book) {
       const title = book.volumeInfo.title;
       const authors = book.volumeInfo.authors ? book.volumeInfo.authors.join(", ") : "Unknown Author";
@@ -48,14 +46,14 @@ $(document).ready(function() {
     });
   }
 
-  // Function to setup pagination
+  // Setup pagination function
   function setupPagination(totalItems, query) {
     const totalPages = Math.ceil(totalItems / resultsPerPage);
     const paginationHtml = generatePaginationControls(totalPages, query);
     $("#pagination").html(paginationHtml);
   }
 
-  // Function to generate pagination controls
+  // Generate pagination controls
   function generatePaginationControls(totalPages, query) {
     let paginationHtml = `<label for="page-select">Page:</label>
                           <select id="page-select">`;
@@ -65,9 +63,8 @@ $(document).ready(function() {
     }
 
     paginationHtml += `</select>`;
-    paginationHtml += `</select>`;
 
-    // Handle page selection change
+    // Page selection event handler
     $("#page-select").change(function() {
       currentPage = parseInt($(this).val());
       searchBooks(query, currentPage);
