@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Book Details</title>
+  <title>My Bookshelf</title>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="Compare2.css">
 </head>
 <body>
   <div class="navbar">
@@ -12,38 +13,44 @@
     <a href="Compare4.html">My Bookshelf</a>
   </div>
 
-  <h1>Book Details</h1>
+  <h1>My Bookshelf</h1>
 
-  <div id="book-details"></div>
+  <div id="bookshelf-container"></div>
 
   <script>
     $(document).ready(function() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const bookId = urlParams.get('id');
-      if (bookId) {
-        fetchBookDetails(bookId);
-      }
+      const bookshelfId = 'YOUR_PUBLIC_BOOKSHELF_ID'; // Replace with your public bookshelf ID
+      fetchBookshelf(bookshelfId);
 
-      function fetchBookDetails(bookId) {
-        const apiUrl = `https://www.googleapis.com/books/v1/volumes/${bookId}`;
+      function fetchBookshelf(bookshelfId) {
+        const apiUrl = `https://www.googleapis.com/books/v1/mylibrary/bookshelves/${bookshelfId}/volumes`;
 
         $.get(apiUrl, function(data) {
-          const book = data.volumeInfo;
-          const title = book.title;
-          const authors = book.authors ? book.authors.join(", ") : "Unknown Author";
-          const description = book.description || "No description available.";
-          const thumbnail = book.imageLinks ? book.imageLinks.thumbnail : "https://via.placeholder.com/128x193?text=No+Image";
+          const books = data.items || [];
+          displayBooks(books);
+        });
+      }
 
-          const bookDetailsHtml = `
-            <div class="book-detail">
-              <img src="${thumbnail}" alt="${title}">
-              <h3>${title}</h3>
-              <p><strong>Authors:</strong> ${authors}</p>
-              <p><strong>Description:</strong> ${description}</p>
+      function displayBooks(books) {
+        $("#bookshelf-container").empty();
+        books.forEach(function(book) {
+          const title = book.volumeInfo.title;
+          const authors = book.volumeInfo.authors ? book.volumeInfo.authors.join(", ") : "Unknown Author";
+          const thumbnail = book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : "https://via.placeholder.com/128x193?text=No+Image";
+          const bookId = book.id;
+          const bookDetailsLink = `book-details.html?id=${bookId}`;
+
+          const bookElement = `
+            <div class="book" data-id="${bookId}">
+              <a href="${bookDetailsLink}">
+                <img src="${thumbnail}" alt="${title}">
+                <h3>${title}</h3>
+              </a>
+              <p>${authors}</p>
             </div>
           `;
 
-          $("#book-details").html(bookDetailsHtml);
+          $("#bookshelf-container").append(bookElement);
         });
       }
     });
