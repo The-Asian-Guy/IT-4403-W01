@@ -1,0 +1,345 @@
+{
+    "start": 0,
+    "num_found": 20,
+    "numFound": 20,
+    "docs": [
+        {
+            "title_suggest": "The Modern Web",
+            "publish_place": [
+                "San Francisco, CA"
+            ],
+            "isbn": [
+                "1593274874",
+                "9781593274870"
+            ],
+            "has_fulltext": false,
+            "language": [
+                "eng"
+            ],
+            "edition_count": 1,
+            "edition_key": [
+                "OL25427547M"
+            ],
+            "last_modified_i": 1371858616,
+            "title": "The Modern Web",
+            "publisher": [
+                "No Starch Press"
+            ],
+            "author_name": [
+                "Peter Gasston"
+            ],
+            "cover_edition_key": "OL25427547M",
+            "seed": [
+                "/books/OL25427547M",
+                "/works/OL16804365W",
+                "/authors/OL6940720A"
+            ],
+            "first_publish_year": 2013,
+            "publish_year": [
+                2013
+            ],
+            "key": "/works/OL16804365W",
+            "text": [
+                "OL25427547M",
+                "1593274874",
+                "9781593274870",
+                "Peter Gasston",
+                "OL6940720A",
+                "multi-device Web development with HTML5, CSS3, and JavaScript",
+                "The Modern Web",
+                "/works/OL16804365W",
+                "No Starch Press"
+            ],
+            "publish_date": [
+                "2013"
+            ],
+            "author_key": [
+                "OL6940720A"
+            ],
+            "type": "work",
+            "ebook_count_i": 0
+        },
+        {
+            "title_suggest": "Modern Technologies in Web Services Research",
+            "edition_key": [
+                "OL9753726M",
+                "OL8900957M"
+            ],
+            "cover_i": 2005600,
+            "isbn": [
+                "1599042800",
+                "9781599042800",
+                "9781599042817",
+                "1599042819"
+            ],
+            "has_fulltext": false,
+            "text": [
+                "OL9753726M",
+                "OL8900957M",
+                "1599042800",
+                "9781599042800",
+                "9781599042817",
+                "1599042819",
+                "Liang-Jie Zhang",
+                "OL3132156A",
+                "Modern Technologies in Web Services Research",
+                "/works/OL9002848W",
+                "Cybertech Publishing",
+                "Idea Group Pub"
+            ],
+            "author_name": [
+                "Liang-Jie Zhang"
+            ],
+            "seed": [
+                "/books/OL9753726M",
+                "/books/OL8900957M",
+                "/works/OL9002848W",
+                "/authors/OL3132156A"
+            ],
+            "author_key": [
+                "OL3132156A"
+            ],
+            "title": "Modern Technologies in Web Services Research",
+            "publish_date": [
+                "February 2007",
+                "March 30, 2007"
+            ],
+            "type": "work",
+            "ebook_count_i": 0,
+            "edition_count": 2,
+            "key": "/works/OL9002848W",
+            "id_goodreads": [
+                "6921381",
+                "5659437"
+            ],
+            "publisher": [
+                "Cybertech Publishing",
+                "Idea Group Pub"
+            ],
+            "language": [
+                "eng"
+            ],
+            "last_modified_i": 1281442501,
+            "id_librarything": [
+                "4718284"
+            ],
+            "cover_edition_key": "OL8900957M",
+            "publish_year": [
+                2007
+            ],
+            "first_publish_year": 2007
+        },
+        {
+            "title_suggest": "Modern Advanced Accounting w/ PowerWeb",
+            "edition_key": [
+                "OL9532179M"
+            ],
+            "cover_i": 1084858,
+            "isbn": [
+                "0072829664",
+                "9780072829662"
+            ],
+            "has_fulltext": false,
+            "text": [
+                "OL9532179M",
+                "0072829664",
+                "9780072829662",
+                "E. John Larsen",
+                "OL534641A",
+                "Enron",
+                "Modern Advanced Accounting w/ PowerWeb",
+                "/works/OL3275302W",
+                "Irwin/McGraw-Hill"
+            ],
+            "author_name": [
+                "E. John Larsen"
+            ],
+            "seed": [
+                "/books/OL9532179M",
+                "/works/OL3275302W",
+                "/authors/OL534641A"
+            ],
+            "author_key": [
+                "OL534641A"
+            ],
+            "title": "Modern Advanced Accounting w/ PowerWeb",
+            "publish_date": [
+                "April 24, 2002"
+            ],
+            "type": "work",
+            "ebook_count_i": 0,
+            "edition_count": 1,
+            "key": "/works/OL3275302W",
+            "id_goodreads": [
+                "1658315"
+            ],
+            "publisher": [
+                "Irwin/McGraw-Hill"
+            ],
+            "language": [
+                "eng"
+            ],
+            "last_modified_i": 1272443381,
+            "cover_edition_key": "OL9532179M",
+            "publish_year": [
+                2002
+            ],
+            "first_publish_year": 2002
+        },
+        {
+            "title_suggest": "Modern technologies in Web services research",
+            "edition_key": [
+                "OL17986184M"
+            ],
+            "isbn": [
+                "1599042800",
+                "9781599042817",
+                "9781599042824",
+                "1599042827",
+                "9781599042800",
+                "1599042819"
+            ],
+            "has_fulltext": false,
+            "text": [
+                "OL17986184M",
+                "1599042800",
+                "9781599042817",
+                "9781599042824",
+                "1599042827",
+                "9781599042800",
+                "1599042819",
+                "Zhang, Liang-Jie.",
+                "Modern technologies in Web services research",
+                "Liang-Jie Zhang [editor].",
+                "Web services.",
+                "/works/OL17986184M",
+                "IGI Pub.",
+                "2006033768"
+            ],
+            "seed": [
+                "/books/OL17986184M",
+                "/works/OL17986184M",
+                "/subjects/web_services."
+            ],
+            "contributor": [
+                "Zhang, Liang-Jie."
+            ],
+            "subject": [
+                "Web services."
+            ],
+            "title": "Modern technologies in Web services research",
+            "publish_date": [
+                "2007"
+            ],
+            "type": "work",
+            "ebook_count_i": 0,
+            "publish_place": [
+                "Hershey, PA"
+            ],
+            "edition_count": 1,
+            "key": "/works/OL17986184M",
+            "id_goodreads": [
+                "5659437",
+                "6921381"
+            ],
+            "publisher": [
+                "IGI Pub."
+            ],
+            "language": [
+                "eng"
+            ],
+            "lccn": [
+                "2006033768"
+            ],
+            "last_modified_i": 1419575139,
+            "id_librarything": [
+                "4718284"
+            ],
+            "cover_edition_key": "OL17986184M",
+            "publish_year": [
+                2007
+            ],
+            "first_publish_year": 2007
+        },
+        {
+            "title_suggest": "Software engineering for modern Web applications",
+            "edition_key": [
+                "OL19971085M"
+            ],
+            "isbn": [
+                "1599044943",
+                "9781599044927",
+                "1599044927",
+                "9781599044941"
+            ],
+            "has_fulltext": false,
+            "text": [
+                "OL19971085M",
+                "1599044943",
+                "9781599044927",
+                "1599044927",
+                "9781599044941",
+                "Brandon, Dan, 1946-",
+                "methodologies and technologies",
+                "Software engineering for modern Web applications",
+                "Daniel M. Brandon, editor.",
+                "Web site development.",
+                "Application software -- Development.",
+                "Software engineering.",
+                "Internet programming.",
+                "/works/OL19971085M",
+                "Information Science Reference",
+                "2008008470"
+            ],
+            "seed": [
+                "/books/OL19971085M",
+                "/works/OL19971085M",
+                "/subjects/application_software_--_development.",
+                "/subjects/internet_programming.",
+                "/subjects/web_site_development.",
+                "/subjects/software_engineering."
+            ],
+            "contributor": [
+                "Brandon, Dan, 1946-"
+            ],
+            "subject": [
+                "Web site development.",
+                "Application software -- Development.",
+                "Software engineering.",
+                "Internet programming."
+            ],
+            "title": "Software engineering for modern Web applications",
+            "publish_date": [
+                "2008"
+            ],
+            "type": "work",
+            "ebook_count_i": 0,
+            "publish_place": [
+                "Hershey, PA"
+            ],
+            "edition_count": 1,
+            "key": "/works/OL19971085M",
+            "id_goodreads": [
+                "3869016",
+                "6193861"
+            ],
+            "publisher": [
+                "Information Science Reference"
+            ],
+            "language": [
+                "eng"
+            ],
+            "lccn": [
+                "2008008470"
+            ],
+            "last_modified_i": 1419577257,
+            "id_librarything": [
+                "6134115"
+            ],
+            "publish_year": [
+                2008
+            ],
+            "first_publish_year": 2008
+        }
+    ]
+}
