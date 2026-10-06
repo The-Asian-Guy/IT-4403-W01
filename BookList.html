@@ -103,250 +103,269 @@
 
     $(document).ready(function() {
 
-      var url =
-        "https://openlibrary.org/search.json?q=modern%20web&limit=10";
-
-      $.ajax({
-        url: url,
-        method: "GET",
-        dataType: "json",
-
-        success: function(data) {
-
-          console.log(data);
-
-          var books = data.docs;
-          var bookList = $("#book-list");
-
-          // Check that books were returned
-          if (!books || books.length === 0) {
-
-            bookList.html(
-              "<p style='color:black;'>No books were found.</p>"
-            );
-
-            return;
-          }
-
-          // Loop through the docs array
-          $.each(books, function(index, book) {
-
-            // -------------------------
-            // Title
-            // -------------------------
-
-            var title = book.title || "Not available";
-
-
-            // -------------------------
-            // Authors
-            // -------------------------
-
-            var authors = "Not available";
-
-            if (book.author_name) {
-              authors = book.author_name.join(", ");
-            }
-
-
-            // -------------------------
-            // First publication year
-            // -------------------------
-
-            var year = "Not available";
-
-            if (book.first_publish_year) {
-              year = book.first_publish_year;
-            }
-
-
-            // -------------------------
-            // Publisher
-            // -------------------------
-
-            var publisher = "Not available";
-
-            if (book.publisher) {
-              publisher = book.publisher.join(", ");
-            }
-
-
-            // -------------------------
-            // Edition count
-            // -------------------------
-
-            var editions = "Not available";
-
-            if (book.edition_count) {
-              editions = book.edition_count;
-            }
-
-
-            // -------------------------
-            // ISBN
-            // -------------------------
-
-            var isbn = "Not available";
-
-            if (book.isbn) {
-
-              isbn = book.isbn
-                .slice(0, 3)
-                .join(", ");
-
-            }
-
-
-            // -------------------------
-            // Language
-            // -------------------------
-
-            var language = "Not available";
-
-            if (book.language) {
-              language = book.language.join(", ");
-            }
-
-
-            // -------------------------
-            // Cover image
-            // -------------------------
-
-            var cover = "";
-
-            if (book.cover_i) {
-
-              cover =
-                "https://covers.openlibrary.org/b/id/" +
-                book.cover_i +
-                "-M.jpg";
-
-            }
-
-
-            // -------------------------
-            // Open Library link
-            // -------------------------
-
-            var openLibraryLink =
-              "https://openlibrary.org" +
-              book.key;
-
-
-            // -------------------------
-            // Subtitle
-            // -------------------------
-
-            var subtitle = "";
-
-            if (book.subtitle) {
-
-              subtitle =
-                "<p><strong>Subtitle:</strong> " +
-                book.subtitle +
-                "</p>";
-
-            }
-
-
-            // -------------------------
-            // Cover HTML
-            // -------------------------
-
-            var coverHTML = "";
-
-            if (cover !== "") {
-
-              coverHTML =
-                "<div class='book-image'>" +
-                  "<img src='" + cover + "'" +
-                  " alt='Cover of " + title + "'>" +
-                "</div>";
-
-            }
-
-
-            // -------------------------
-            // Create book card
-            // -------------------------
-
-            var bookItem =
-
-              "<div class='book-item'>" +
-
-                coverHTML +
-
-                "<div class='book-info'>" +
-
-                  "<h3>" +
-                    title +
-                  "</h3>" +
-
-                  subtitle +
-
-                  "<p>" +
-                    "<strong>Authors:</strong> " +
-                    authors +
-                  "</p>" +
-
-                  "<p>" +
-                    "<strong>First Published:</strong> " +
-                    year +
-                  "</p>" +
-
-                  "<p>" +
-                    "<strong>Publisher:</strong> " +
-                    publisher +
-                  "</p>" +
-
-                  "<p>" +
-                    "<strong>Edition Count:</strong> " +
-                    editions +
-                  "</p>" +
-
-                  "<p>" +
-                    "<strong>ISBN:</strong> " +
-                    isbn +
-                  "</p>" +
-
-                  "<p>" +
-                    "<strong>Language:</strong> " +
-                    language +
-                  "</p>" +
-
-                  "<a href='" +
-                    openLibraryLink +
-                    "' target='_blank'>" +
-                    "View on Open Library" +
-                  "</a>" +
-
-                "</div>" +
-
-              "</div>";
-
-
-            // Add book to page
-            bookList.append(bookItem);
-
-          });
-
-        },
-
-        error: function(xhr, status, error) {
-
-          console.log("Error:", error);
-          console.log("Status:", status);
-          console.log("Response:", xhr.responseText);
-
-          $("#book-list").html(
+      /*
+       * Load the Open Library JSON file.
+       *
+       * Make sure openlibrary-search.json is
+       * in the same folder as this HTML file.
+       */
+      $.getJSON("openlibrary-search.json", function(data) {
+
+        var books = data.docs;
+
+        var bookList = $("#book-list");
+
+        /*
+         * Check to make sure the docs array
+         * contains books.
+         */
+        if (!books || books.length === 0) {
+
+          bookList.html(
             "<p style='color:black;'>" +
-            "Unable to load the Open Library results." +
-            "<br><br>" +
-            "Please check the browser console for more information." +
+            "No books were found." +
             "</p>"
           );
 
+          return;
         }
+
+        /*
+         * Loop through the docs array.
+         */
+        $.each(books, function(index, book) {
+
+          /*
+           * Title
+           */
+          var title = book.title || "Not available";
+
+
+          /*
+           * Authors
+           */
+          var authors = "Not available";
+
+          if (book.author_name) {
+            authors = book.author_name.join(", ");
+          }
+
+
+          /*
+           * First publication year
+           */
+          var year = "Not available";
+
+          if (book.first_publish_year) {
+            year = book.first_publish_year;
+          }
+
+
+          /*
+           * Publisher
+           */
+          var publisher = "Not available";
+
+          if (book.publisher) {
+            publisher = book.publisher.join(", ");
+          }
+
+
+          /*
+           * Edition count
+           */
+          var editionCount = "Not available";
+
+          if (book.edition_count) {
+            editionCount = book.edition_count;
+          }
+
+
+          /*
+           * ISBN
+           */
+          var isbn = "Not available";
+
+          if (book.isbn) {
+
+            isbn = book.isbn
+              .slice(0, 3)
+              .join(", ");
+
+          }
+
+
+          /*
+           * Language
+           */
+          var language = "Not available";
+
+          if (book.language) {
+            language = book.language.join(", ");
+          }
+
+
+          /*
+           * Number of pages
+           */
+          var pages = "Not available";
+
+          if (book.number_of_pages_median) {
+            pages = book.number_of_pages_median;
+          }
+
+
+          /*
+           * Subjects
+           */
+          var subjects = "Not available";
+
+          if (book.subject) {
+
+            subjects = book.subject
+              .slice(0, 5)
+              .join(", ");
+
+          }
+
+
+          /*
+           * Cover image
+           */
+          var coverHTML = "";
+
+          if (book.cover_i) {
+
+            var coverURL =
+              "https://covers.openlibrary.org/b/id/" +
+              book.cover_i +
+              "-M.jpg";
+
+            coverHTML =
+              "<div class='book-image'>" +
+                "<img src='" +
+                coverURL +
+                "' alt='Cover of " +
+                title +
+                "'>" +
+              "</div>";
+
+          }
+
+
+          /*
+           * Open Library link
+           */
+          var openLibraryLink =
+            "https://openlibrary.org" +
+            (book.key || "");
+
+
+          /*
+           * Subtitle
+           */
+          var subtitleHTML = "";
+
+          if (book.subtitle) {
+
+            subtitleHTML =
+              "<p>" +
+                "<strong>Subtitle:</strong> " +
+                book.subtitle +
+              "</p>";
+
+          }
+
+
+          /*
+           * Create the book card.
+           */
+          var bookItem =
+
+            "<div class='book-item'>" +
+
+              coverHTML +
+
+              "<div class='book-info'>" +
+
+                "<h3>" +
+                  title +
+                "</h3>" +
+
+                subtitleHTML +
+
+                "<p>" +
+                  "<strong>Authors:</strong> " +
+                  authors +
+                "</p>" +
+
+                "<p>" +
+                  "<strong>First Published:</strong> " +
+                  year +
+                "</p>" +
+
+                "<p>" +
+                  "<strong>Publisher:</strong> " +
+                  publisher +
+                "</p>" +
+
+                "<p>" +
+                  "<strong>Edition Count:</strong> " +
+                  editionCount +
+                "</p>" +
+
+                "<p>" +
+                  "<strong>ISBN:</strong> " +
+                  isbn +
+                "</p>" +
+
+                "<p>" +
+                  "<strong>Language:</strong> " +
+                  language +
+                "</p>" +
+
+                "<p>" +
+                  "<strong>Pages:</strong> " +
+                  pages +
+                "</p>" +
+
+                "<p>" +
+                  "<strong>Subjects:</strong> " +
+                  subjects +
+                "</p>" +
+
+                "<a href='" +
+                  openLibraryLink +
+                  "' target='_blank'>" +
+                  "View on Open Library" +
+                "</a>" +
+
+              "</div>" +
+
+            "</div>";
+
+
+          /*
+           * Add the book card to the page.
+           */
+          bookList.append(bookItem);
+
+        });
+
+      }).fail(function(xhr, status, error) {
+
+        console.log("Error:", error);
+        console.log("Status:", status);
+        console.log("Response:", xhr.responseText);
+
+        $("#book-list").html(
+          "<p style='color:black;'>" +
+          "Unable to load openlibrary-search.json." +
+          "<br><br>" +
+          "Make sure the JSON file is in the same " +
+          "folder as BookList.html." +
+          "</p>"
+        );
 
       });
 
