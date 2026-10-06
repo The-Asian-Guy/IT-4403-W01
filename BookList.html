@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Milestone 1: Book Search Results</title>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -30,6 +31,7 @@
       flex-wrap: wrap;
       gap: 20px;
       justify-content: center;
+      padding: 20px;
     }
 
     .book-item {
@@ -60,25 +62,31 @@
     .book-info p {
       font-size: 0.9em;
       color: #b0b3b2;
+      line-height: 1.4;
     }
 
-    a:link,
-    a:visited {
+    .book-info a {
       background-color: black;
       color: #FFC629;
       border-radius: 8px;
       border: 2px solid #FFC629;
-      padding: 14px 25px;
+      padding: 10px 15px;
       text-align: center;
-      margin: 0 auto;
+      margin: 5px;
       text-decoration: none;
       display: inline-block;
     }
 
-    a:hover,
-    a:active {
+    .book-info a:hover {
       background-color: #b0b3b2;
       color: black;
+    }
+
+    .error-message {
+      color: black;
+      text-align: center;
+      font-size: 1.2em;
+      padding: 20px;
     }
   </style>
 </head>
@@ -101,273 +109,305 @@
 
   <script>
 
+    /*
+     * This function returns a value if it exists.
+     * If the value is missing, it returns "Not available".
+     */
+    function getValue(value) {
+
+      if (value === undefined || value === null || value === "") {
+        return "Not available";
+      }
+
+      return value;
+    }
+
+
+    /*
+     * This function handles fields that contain arrays.
+     * Example:
+     * ["Peter Gasston"]
+     * becomes:
+     * Peter Gasston
+     */
+    function getArrayValue(array) {
+
+      if (!array || array.length === 0) {
+        return "Not available";
+      }
+
+      return array.join(", ");
+    }
+
+
+    /*
+     * Load the local Open Library JSON file.
+     */
     $(document).ready(function() {
 
-      /*
-       * Load the Open Library JSON file.
-       *
-       * Make sure openlibrary-search.json is
-       * in the same folder as this HTML file.
-       */
-      $.getJSON("openlibrary-search.json", function(data) {
+      $.getJSON("openlibrary-search.json")
 
-        var books = data.docs;
+        .done(function(data) {
 
-        var bookList = $("#book-list");
+          var books = data.docs;
+
+          var bookList = $("#book-list");
+
+
+          /*
+           * Make sure the JSON contains books.
+           */
+          if (!books || books.length === 0) {
+
+            bookList.html(
+              '<p class="error-message">No books were found.</p>'
+            );
+
+            return;
+          }
+
+
+          /*
+           * Loop through every book in the docs array.
+           */
+          $.each(books, function(index, book) {
+
+            /*
+             * Get the cover image.
+             *
+             * Open Library provides cover images using
+             * the cover_i or cover_edition_key values.
+             */
+            var coverImage = "";
+
+            if (book.cover_i) {
+
+              coverImage =
+                "https://covers.openlibrary.org/b/id/" +
+                book.cover_i +
+                "-M.jpg";
+
+            } else if (book.cover_edition_key) {
+
+              coverImage =
+                "https://covers.openlibrary.org/b/olid/" +
+                book.cover_edition_key +
+                "-M.jpg";
+
+            }
+
+
+            /*
+             * If there is no cover image, use a placeholder.
+             */
+            if (coverImage === "") {
+
+              coverImage =
+                "https://via.placeholder.com/180x260?text=No+Cover";
+
+            }
+
+
+            /*
+             * Create the Open Library work URL.
+             *
+             * The "key" field normally contains something like:
+             * /works/OL16804365W
+             */
+            var openLibraryLink = "#";
+
+            if (book.key) {
+
+              openLibraryLink =
+                "https://openlibrary.org" +
+                book.key;
+
+            }
+
+
+            /*
+             * Get the authors.
+             */
+            var authors = getArrayValue(book.author_name);
+
+
+            /*
+             * Get publishers.
+             */
+            var publishers = getArrayValue(book.publisher);
+
+
+            /*
+             * Get ISBN numbers.
+             */
+            var isbn = getArrayValue(book.isbn);
+
+
+            /*
+             * Get subjects.
+             */
+            var subjects = getArrayValue(book.subject);
+
+
+            /*
+             * Get languages.
+             */
+            var languages = getArrayValue(book.language);
+
+
+            /*
+             * Get publication years.
+             */
+            var publicationYears =
+              getArrayValue(book.publish_year);
+
+
+            /*
+             * Get publication dates.
+             */
+            var publicationDates =
+              getArrayValue(book.publish_date);
+
+
+            /*
+             * Create the HTML for this book.
+             */
+            var bookItem = `
+
+              <div class="book-item">
+
+                <div class="book-image">
+
+                  <img
+                    src="${coverImage}"
+                    alt="${getValue(book.title)}"
+                    onerror="this.src='https://via.placeholder.com/180x260?text=No+Cover';"
+                  >
+
+                </div>
+
+
+                <div class="book-info">
+
+                  <h3>
+                    ${getValue(book.title)}
+                  </h3>
+
+
+                  <p>
+                    <strong>Authors:</strong>
+                    ${authors}
+                  </p>
+
+
+                  <p>
+                    <strong>First Publication Year:</strong>
+                    ${getValue(book.first_publish_year)}
+                  </p>
+
+
+                  <p>
+                    <strong>Publisher:</strong>
+                    ${publishers}
+                  </p>
+
+
+                  <p>
+                    <strong>Edition Count:</strong>
+                    ${getValue(book.edition_count)}
+                  </p>
+
+
+                  <p>
+                    <strong>ISBN:</strong>
+                    ${isbn}
+                  </p>
+
+
+                  <p>
+                    <strong>Publication Years:</strong>
+                    ${publicationYears}
+                  </p>
+
+
+                  <p>
+                    <strong>Publication Dates:</strong>
+                    ${publicationDates}
+                  </p>
+
+
+                  <p>
+                    <strong>Language:</strong>
+                    ${languages}
+                  </p>
+
+
+                  <p>
+                    <strong>Subjects:</strong>
+                    ${subjects}
+                  </p>
+
+
+                  <p>
+                    <strong>Ebook Count:</strong>
+                    ${getValue(book.ebook_count_i)}
+                  </p>
+
+
+                  <p>
+                    <strong>Full Text Available:</strong>
+                    ${book.has_fulltext ? "Yes" : "No"}
+                  </p>
+
+
+                  <a
+                    href="${openLibraryLink}"
+                    target="_blank"
+                  >
+                    Open Library
+                  </a>
+
+                </div>
+
+              </div>
+
+            `;
+
+
+            /*
+             * Add the book to the page.
+             */
+            bookList.append(bookItem);
+
+          });
+
+        })
+
 
         /*
-         * Check to make sure the docs array
-         * contains books.
+         * If the JSON file cannot be loaded,
+         * display an error message.
          */
-        if (!books || books.length === 0) {
-
-          bookList.html(
-            "<p style='color:black;'>" +
-            "No books were found." +
-            "</p>"
-          );
-
-          return;
-        }
-
-        /*
-         * Loop through the docs array.
-         */
-        $.each(books, function(index, book) {
-
-          /*
-           * Title
-           */
-          var title = book.title || "Not available";
-
-
-          /*
-           * Authors
-           */
-          var authors = "Not available";
-
-          if (book.author_name) {
-            authors = book.author_name.join(", ");
-          }
-
-
-          /*
-           * First publication year
-           */
-          var year = "Not available";
-
-          if (book.first_publish_year) {
-            year = book.first_publish_year;
-          }
-
-
-          /*
-           * Publisher
-           */
-          var publisher = "Not available";
-
-          if (book.publisher) {
-            publisher = book.publisher.join(", ");
-          }
-
-
-          /*
-           * Edition count
-           */
-          var editionCount = "Not available";
-
-          if (book.edition_count) {
-            editionCount = book.edition_count;
-          }
-
-
-          /*
-           * ISBN
-           */
-          var isbn = "Not available";
-
-          if (book.isbn) {
-
-            isbn = book.isbn
-              .slice(0, 3)
-              .join(", ");
-
-          }
-
-
-          /*
-           * Language
-           */
-          var language = "Not available";
-
-          if (book.language) {
-            language = book.language.join(", ");
-          }
-
-
-          /*
-           * Number of pages
-           */
-          var pages = "Not available";
-
-          if (book.number_of_pages_median) {
-            pages = book.number_of_pages_median;
-          }
-
-
-          /*
-           * Subjects
-           */
-          var subjects = "Not available";
-
-          if (book.subject) {
-
-            subjects = book.subject
-              .slice(0, 5)
-              .join(", ");
-
-          }
-
-
-          /*
-           * Cover image
-           */
-          var coverHTML = "";
-
-          if (book.cover_i) {
-
-            var coverURL =
-              "https://covers.openlibrary.org/b/id/" +
-              book.cover_i +
-              "-M.jpg";
-
-            coverHTML =
-              "<div class='book-image'>" +
-                "<img src='" +
-                coverURL +
-                "' alt='Cover of " +
-                title +
-                "'>" +
-              "</div>";
-
-          }
-
-
-          /*
-           * Open Library link
-           */
-          var openLibraryLink =
-            "https://openlibrary.org" +
-            (book.key || "");
-
-
-          /*
-           * Subtitle
-           */
-          var subtitleHTML = "";
-
-          if (book.subtitle) {
-
-            subtitleHTML =
-              "<p>" +
-                "<strong>Subtitle:</strong> " +
-                book.subtitle +
-              "</p>";
-
-          }
-
-
-          /*
-           * Create the book card.
-           */
-          var bookItem =
-
-            "<div class='book-item'>" +
-
-              coverHTML +
-
-              "<div class='book-info'>" +
-
-                "<h3>" +
-                  title +
-                "</h3>" +
-
-                subtitleHTML +
-
-                "<p>" +
-                  "<strong>Authors:</strong> " +
-                  authors +
-                "</p>" +
-
-                "<p>" +
-                  "<strong>First Published:</strong> " +
-                  year +
-                "</p>" +
-
-                "<p>" +
-                  "<strong>Publisher:</strong> " +
-                  publisher +
-                "</p>" +
-
-                "<p>" +
-                  "<strong>Edition Count:</strong> " +
-                  editionCount +
-                "</p>" +
-
-                "<p>" +
-                  "<strong>ISBN:</strong> " +
-                  isbn +
-                "</p>" +
-
-                "<p>" +
-                  "<strong>Language:</strong> " +
-                  language +
-                "</p>" +
-
-                "<p>" +
-                  "<strong>Pages:</strong> " +
-                  pages +
-                "</p>" +
-
-                "<p>" +
-                  "<strong>Subjects:</strong> " +
-                  subjects +
-                "</p>" +
-
-                "<a href='" +
-                  openLibraryLink +
-                  "' target='_blank'>" +
-                  "View on Open Library" +
-                "</a>" +
-
-              "</div>" +
-
-            "</div>";
-
-
-          /*
-           * Add the book card to the page.
-           */
-          bookList.append(bookItem);
+        .fail(function(jqXHR, textStatus, errorThrown) {
+
+          console.log("Error loading openlibrary-search.json");
+          console.log("Status:", textStatus);
+          console.log("Error:", errorThrown);
+
+          $("#book-list").html(`
+
+            <p class="error-message">
+              Unable to load the book data.
+              <br><br>
+              Make sure that
+              <strong>openlibrary-search.json</strong>
+              is in the same folder as
+              <strong>BookList.html</strong>.
+            </p>
+
+          `);
 
         });
-
-      }).fail(function(xhr, status, error) {
-
-        console.log("Error:", error);
-        console.log("Status:", status);
-        console.log("Response:", xhr.responseText);
-
-        $("#book-list").html(
-          "<p style='color:black;'>" +
-          "Unable to load openlibrary-search.json." +
-          "<br><br>" +
-          "Make sure the JSON file is in the same " +
-          "folder as BookList.html." +
-          "</p>"
-        );
-
-      });
 
     });
 
