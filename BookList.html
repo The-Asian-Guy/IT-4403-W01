@@ -65,22 +65,25 @@
       line-height: 1.4;
     }
 
-    .book-info a {
-      background-color: black;
-      color: #FFC629;
-      border-radius: 8px;
-      border: 2px solid #FFC629;
-      padding: 10px 15px;
-      text-align: center;
-      margin: 5px;
-      text-decoration: none;
-      display: inline-block;
-    }
+    .book-info a,
+      .page-button {
+        background-color: black;
+        color: #FFC629;
+        border-radius: 8px;
+        border: 2px solid #FFC629;
+        padding: 10px 15px;
+        text-align: center;
+        margin: 5px;
+        text-decoration: none;
+        display: inline-block;
+      }
 
-    .book-info a:hover {
-      background-color: #b0b3b2;
-      color: black;
-    }
+      .book-info a:hover,
+      .page-button:hover {
+        background-color: #b0b3b2;
+        color: black;
+      }
+
 
     .error-message {
       color: black;
@@ -88,6 +91,22 @@
       font-size: 1.2em;
       padding: 20px;
     }
+    .placeholder-cover {
+      width: 180px;
+      height: 260px;
+      margin: 0 auto;
+      background-color: #b0b3b2;
+      color: black;
+      border: 2px solid #FFC629;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+
   </style>
 </head>
 
@@ -98,7 +117,7 @@
     <h1>Milestone 1: Book Search Results</h1>
 
     <div class="parentContainer">
-      <a href="IndividualProjectWork.html">
+      <a class="page-button" href="IndividualProjectWork.html">
         Return to Individual Project Works
       </a>
     </div>
@@ -109,10 +128,6 @@
 
   <script>
 
-    /*
-     * This function returns a value if it exists.
-     * If the value is missing, it returns "Not available".
-     */
     function getValue(value) {
 
       if (value === undefined || value === null || value === "") {
@@ -122,14 +137,6 @@
       return value;
     }
 
-
-    /*
-     * This function handles fields that contain arrays.
-     * Example:
-     * ["Peter Gasston"]
-     * becomes:
-     * Peter Gasston
-     */
     function getArrayValue(array) {
 
       if (!array || array.length === 0) {
@@ -139,10 +146,6 @@
       return array.join(", ");
     }
 
-
-    /*
-     * Load the local Open Library JSON file.
-     */
     $(document).ready(function() {
 
       $.getJSON("openlibrary-search.json")
@@ -153,10 +156,6 @@
 
           var bookList = $("#book-list");
 
-
-          /*
-           * Make sure the JSON contains books.
-           */
           if (!books || books.length === 0) {
 
             bookList.html(
@@ -166,54 +165,47 @@
             return;
           }
 
-
-          /*
-           * Loop through every book in the docs array.
-           */
           $.each(books, function(index, book) {
 
-            /*
-             * Get the cover image.
-             *
-             * Open Library provides cover images using
-             * the cover_i or cover_edition_key values.
-             */
             var coverImage = "";
 
             if (book.cover_i) {
-
-              coverImage =
-                "https://covers.openlibrary.org/b/id/" +
-                book.cover_i +
-                "-M.jpg";
+              coverHTML = `
+                <img
+                  src="https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg"
+                  alt="${getValue(book.title)}"
+                  onerror="this.parentElement.innerHTML='<div class=&quot;placeholder-cover&quot;>No Cover<br>Available</div>';"
+                >
+              `;
 
             } else if (book.cover_edition_key) {
 
-              coverImage =
-                "https://covers.openlibrary.org/b/olid/" +
-                book.cover_edition_key +
-                "-M.jpg";
+              coverHTML = `
+                <img
+                  src="https://covers.openlibrary.org/b/olid/${book.cover_edition_key}-M.jpg"
+                  alt="${getValue(book.title)}"
+                  onerror="this.parentElement.innerHTML='<div class=&quot;placeholder-cover&quot;>No Cover<br>Available</div>';"
+                >
+              `;
+
+            } else {
+
+              coverHTML = `
+                <div class="placeholder-cover">
+                  No Cover<br>
+                  Available
+                </div>
+              `;
 
             }
 
-
-            /*
-             * If there is no cover image, use a placeholder.
-             */
             if (coverImage === "") {
 
               coverImage =
                 "https://via.placeholder.com/180x260?text=No+Cover";
 
             }
-
-
-            /*
-             * Create the Open Library work URL.
-             *
-             * The "key" field normally contains something like:
-             * /works/OL16804365W
-             */
+            
             var openLibraryLink = "#";
 
             if (book.key) {
@@ -224,76 +216,33 @@
 
             }
 
-
-            /*
-             * Get the authors.
-             */
             var authors = getArrayValue(book.author_name);
 
-
-            /*
-             * Get publishers.
-             */
             var publishers = getArrayValue(book.publisher);
 
-
-            /*
-             * Get ISBN numbers.
-             */
             var isbn = getArrayValue(book.isbn);
 
-
-            /*
-             * Get subjects.
-             */
             var subjects = getArrayValue(book.subject);
 
-
-            /*
-             * Get languages.
-             */
             var languages = getArrayValue(book.language);
 
-
-            /*
-             * Get publication years.
-             */
             var publicationYears =
               getArrayValue(book.publish_year);
 
-
-            /*
-             * Get publication dates.
-             */
             var publicationDates =
               getArrayValue(book.publish_date);
-
-
-            /*
-             * Create the HTML for this book.
-             */
+            
             var bookItem = `
-
               <div class="book-item">
-
                 <div class="book-image">
-
-                  <img
-                    src="${coverImage}"
-                    alt="${getValue(book.title)}"
-                    onerror="this.src='https://via.placeholder.com/180x260?text=No+Cover';"
-                  >
-
+                  ${coverHTML}
                 </div>
-
-
+                
                 <div class="book-info">
-
                   <h3>
                     ${getValue(book.title)}
                   </h3>
-
-
+                  
                   <p>
                     <strong>Authors:</strong>
                     ${authors}
@@ -372,22 +321,11 @@
               </div>
 
             `;
-
-
-            /*
-             * Add the book to the page.
-             */
             bookList.append(bookItem);
 
           });
 
         })
-
-
-        /*
-         * If the JSON file cannot be loaded,
-         * display an error message.
-         */
         .fail(function(jqXHR, textStatus, errorThrown) {
 
           console.log("Error loading openlibrary-search.json");
@@ -398,11 +336,6 @@
 
             <p class="error-message">
               Unable to load the book data.
-              <br><br>
-              Make sure that
-              <strong>openlibrary-search.json</strong>
-              is in the same folder as
-              <strong>BookList.html</strong>.
             </p>
 
           `);
