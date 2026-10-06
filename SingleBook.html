@@ -191,7 +191,6 @@
 
   <script>
 
-    // Open Library edition data
     var bookData = {
       "identifiers": {
         "goodreads": ["1507552"],
@@ -275,7 +274,6 @@
 
     $(document).ready(function() {
 
-      // Basic book information
       $('#book-title').text(bookData.title);
 
       $('#book-authors').text(
@@ -303,7 +301,6 @@
       $('#book-page-count').text(
         bookData.number_of_pages
       );
-
 
       // Additional metadata
       $('#book-contributions').text(
@@ -354,8 +351,6 @@
         bookData.last_modified.value
       );
 
-
-      // First sentence
       if (bookData.first_sentence) {
         $('#book-first-sentence').text(
           bookData.first_sentence.value
@@ -366,18 +361,11 @@
         );
       }
 
-
-      // Open Library record
       $('#book-record').attr(
         'href',
         'https://openlibrary.org' + bookData.key
       );
 
-
-      // Cover image
-      //
-      // Open Library cover URLs use the cover ID contained
-      // in the "covers" array.
       if (bookData.covers && bookData.covers.length > 0) {
 
         var coverID = bookData.covers[0];
